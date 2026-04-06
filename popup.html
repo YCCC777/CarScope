@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarScope</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header id="header">
+      <img id="header-icon" src="imag/icon32.png" alt="CarScope" width="22" height="22">
+      <span id="header-title">CarScope</span>
+      <button id="btn-settings" class="settings-btn" title="Settings">⚙️</button>
+    </header>
+
+    <!-- Tab bar -->
+    <nav id="tab-bar">
+      <button class="tab-btn active" data-tab="vehicle" id="tab-vehicle">🔍 Vehicle</button>
+      <button class="tab-btn"        data-tab="saved"   id="tab-saved">🚗 Saved</button>
+      <button class="tab-btn"        data-tab="compare" id="tab-compare">⚖️ Compare</button>
+    </nav>
+
+    <!-- ===== Tab: Vehicle ===== -->
+    <div id="pane-vehicle" class="tab-pane active">
+
+      <!-- Status / car info -->
+      <div id="info-section">
+        <div id="status-bar" class="state-detecting">
+          <span id="status-dot"></span>
+          <span id="status-text">Detecting vehicle…</span>
+        </div>
+
+        <div id="vehicle-info" class="hidden">
+          <!-- Source badge -->
+          <div id="source-row">
+            <span id="source-badge" class="source-badge"></span>
+            <span id="condition-badge" class="condition-badge hidden"></span>
+          </div>
+
+          <!-- Car name -->
+          <div id="car-name" class="car-name"></div>
+
+          <!-- Specs chips -->
+          <div id="specs-row" class="specs-row hidden"></div>
+
+          <!-- Action buttons -->
+          <button id="btn-save" class="save-btn">⭐ <span id="label-save">Save</span></button>
+
+          <!-- Link-out tools -->
+          <div class="tool-row">
+            <button id="btn-carfax"  class="tool-btn">CARFAX</button>
+            <button id="btn-nhtsa"   class="tool-btn">NHTSA</button>
+            <button id="btn-kbb"     class="tool-btn">KBB Value</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recalls section (shown when make/model/year known) -->
+      <div id="section-recalls" class="group hidden">
+        <button class="section-toggle" id="btn-recalls-toggle">
+          <h3 class="group-label group-label-warn">⚠️ NHTSA Recalls</h3>
+          <span class="toggle-arrow" id="recalls-arrow">▶</span>
+        </button>
+        <div id="recalls-body" class="hidden">
+          <div id="recalls-content" class="recalls-loading">Checking recalls…</div>
+          <div class="recalls-source">Source: NHTSA (api.nhtsa.gov) — U.S. only</div>
+        </div>
+      </div>
+
+      <!-- VIN decode section (shown when VIN known) -->
+      <div id="section-vin" class="group hidden">
+        <button class="section-toggle" id="btn-vin-toggle">
+          <h3 class="group-label">🔑 VIN Details</h3>
+          <span class="toggle-arrow" id="vin-arrow">▶</span>
+        </button>
+        <div id="vin-body" class="hidden">
+          <div id="vin-content" class="vin-loading">Decoding VIN…</div>
+        </div>
+      </div>
+
+      <!-- Not a listing page -->
+      <div id="not-listing" class="hidden">
+        <div class="empty-state">
+          <div class="empty-icon">🚗</div>
+          <p id="label-not-listing">Go to a vehicle listing page on CarGurus or AutoTrader to use CarScope.</p>
+          <div class="platform-hint">
+            <span class="ph-badge ph-cargurus">CarGurus</span>
+            <span class="ph-badge ph-autotrader">AutoTrader</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pane-vehicle -->
+
+    <!-- ===== Tab: Saved ===== -->
+    <div id="pane-saved" class="tab-pane">
+      <div class="fav-filter-wrap">
+        <div id="saved-filter-bar">
+          <button class="filter-pill active" data-filter="ALL">All</button>
+          <button class="filter-pill" data-filter="unseen">Not Visited</button>
+          <button class="filter-pill" data-filter="scheduled">Scheduled</button>
+          <button class="filter-pill" data-filter="seen">Visited</button>
+        </div>
+      </div>
+      <div id="saved-list"></div>
+      <div id="saved-empty" class="hidden">
+        <div class="empty-state">
+          <div class="empty-icon">🚗</div>
+          <p>No saved cars yet.</p>
+          <p class="empty-hint">Click Save on any listing to track it.</p>
+        </div>
+      </div>
+    </div><!-- /pane-saved -->
+
+    <!-- ===== Tab: Compare ===== -->
+    <div id="pane-compare" class="tab-pane">
+      <div id="compare-grid"></div>
+      <div id="compare-empty">
+        <div class="empty-state">
+          <div class="empty-icon">⚖️</div>
+          <p>Select 2–5 cars from your saved list to compare.</p>
+        </div>
+      </div>
+    </div><!-- /pane-compare -->
+
+    <footer id="footer">
+      <a id="footer-brand" href="#" class="footer-brand" title="About CarScope">
+        🚗 CarScope
+      </a>
+    </footer>
+
+  </div><!-- /app -->
+
+  <script src="i18n/locales.js"></script>
+  <script src="lib/storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

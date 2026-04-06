@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "CarScope",
+  "version": "0.1.0",
+  "description": "Your unbiased used car buying assistant — recalls, pricing, and car tracking across platforms.",
+  "icons": {
+    "16":  "imag/icon16.png",
+    "32":  "imag/icon32.png",
+    "48":  "imag/icon48.png",
+    "128": "imag/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon":  { "32": "imag/icon32.png" }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.cargurus.com/*"],
+      "js": ["extractors/base.js", "extractors/cargurus.js", "content.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.autotrader.com/*"],
+      "js": ["extractors/base.js", "extractors/autotrader.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": ["storage", "tabs", "scripting", "alarms"],
+  "host_permissions": [
+    "https://api.nhtsa.gov/*",
+    "https://vpic.nhtsa.dot.gov/*",
+    "https://www.fueleconomy.gov/*"
+  ]
+}
