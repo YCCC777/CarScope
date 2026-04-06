@@ -138,6 +138,14 @@ NHTSA APIs require background.js proxy (CORS). EPA is direct fetch.
 - MAIN world data (`window.__CARGURUS_DATA__`) requires `scripting` permission injection
 - NHTSA data is US-only; international recalls not covered
 
+## Development Environment Constraints
+
+- **CarGurus 封鎖台灣 IP**（HTTP 418）：開發者在台灣無法直接存取 CarGurus
+  - 解法 A：使用美國 VPN（Proton VPN / Windscribe 免費版）
+  - 解法 B：改用 AutoTrader UK（`autotrader.co.uk`）作為開發測試平台，台灣可存取
+  - 待決：2026-04-07 決定方向後實作
+- **AutoTrader.com** 同樣可能封鎖非美國 IP
+
 ---
 
 ## Phase Roadmap
