@@ -69,6 +69,13 @@ function extractCarFromJsonLd() {
         const make  = item.brand?.name || item.manufacturer?.name || null;
         const model = item.model || null;
 
+        // Additional schema.org/Vehicle fields
+        const trim         = item.vehicleConfiguration || null;
+        const fuelType     = item.fuelType || null;
+        const transmission = item.vehicleTransmission || null;
+        const colour       = item.color || item.colour || null;
+        const bodyType     = item.bodyType || null;
+
         if (vin || name || price) {
           return {
             vin:     vin ? String(vin).trim().toUpperCase() : null,
@@ -78,12 +85,45 @@ function extractCarFromJsonLd() {
             year:    year ? parseInt(year, 10) || null : null,
             make,
             model,
+            trim,
+            fuelType,
+            transmission,
+            colour,
+            bodyType,
             strategy: 'jsonld',
           };
         }
       }
     } catch (e) {}
   }
+  return null;
+}
+
+// ---- UK Registration Plate 驗證（post-2001 current format: AB12 CDE） ----
+function isValidUKReg(reg) {
+  if (!reg || typeof reg !== 'string') return false;
+  return /^[A-Z]{2}[0-9]{2}\s?[A-Z]{3}$/i.test(reg.trim());
+}
+
+// ---- 從頁面掃描 UK 車牌 ----
+function scanPageForUKReg() {
+  const REG_RE = /\b([A-Z]{2}[0-9]{2}\s?[A-Z]{3})\b/g;
+
+  // 1. inline scripts（常在 preloaded state 中出現）
+  for (const s of document.querySelectorAll('script:not([src])')) {
+    const text = s.textContent;
+    if (text.length > 3_000_000) continue;
+    const m = REG_RE.exec(text);
+    if (m) return m[1].trim().toUpperCase().replace(/(\w{4})(\w{3})/, '$1 $2');
+    REG_RE.lastIndex = 0;
+  }
+
+  // 2. DOM body text（車牌通常顯眼呈現）
+  const bodyText = document.body?.innerText || '';
+  REG_RE.lastIndex = 0;
+  const m = REG_RE.exec(bodyText);
+  if (m) return m[1].trim().toUpperCase();
+
   return null;
 }
 

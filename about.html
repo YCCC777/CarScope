@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About CarScope</title>
+  <link rel="icon" href="imag/icon32.png" type="image/png">
+  <link rel="stylesheet" href="about.css">
+</head>
+<body>
+  <div id="page">
+
+    <!-- Hero -->
+    <section id="hero">
+      <div class="hero-logo"><img src="imag/CarScope_logo_about.png" alt="CarScope" width="110" height="110" style="border-radius:22px;"></div>
+      <h1 class="hero-title">CarScope</h1>
+      <p class="hero-tagline">Your unbiased US car buying assistant.<br>Recalls · VIN decode · Price tracking</p>
+    </section>
+
+    <!-- Features -->
+    <section class="content-section">
+      <h2 class="section-heading">What CarScope does</h2>
+      <div class="feature-grid">
+        <div class="feature-card"><span class="fc-icon">⚠️</span><span class="fc-text">NHTSA recalls lookup</span></div>
+        <div class="feature-card"><span class="fc-icon">💬</span><span class="fc-text">NHTSA complaints data</span></div>
+        <div class="feature-card"><span class="fc-icon">🔑</span><span class="fc-text">VIN decode</span></div>
+        <div class="feature-card"><span class="fc-icon">📊</span><span class="fc-text">Price history &amp; drop alerts</span></div>
+        <div class="feature-card"><span class="fc-icon">💰</span><span class="fc-text">Monthly cost estimate</span></div>
+        <div class="feature-card"><span class="fc-icon">⚖️</span><span class="fc-text">Side-by-side comparison</span></div>
+        <div class="feature-card"><span class="fc-icon">📋</span><span class="fc-text">Pre-purchase checklist</span></div>
+        <div class="feature-card"><span class="fc-icon">🕒</span><span class="fc-text">Browsing history</span></div>
+      </div>
+    </section>
+
+    <!-- How to use -->
+    <section class="content-section">
+      <h2 class="section-heading">How to use</h2>
+      <ol class="usage-list">
+        <li>Go to a <strong>CarGurus</strong> vehicle listing page</li>
+        <li>Click the <strong>CarScope icon</strong> in your browser toolbar</li>
+        <li>View recalls, complaints, and VIN details in the <strong>Vehicle tab</strong></li>
+        <li>Click <strong>Save</strong> to track the car and monitor its price</li>
+        <li>Use the <strong>Saved tab</strong> to manage your shortlist, notes, and ratings</li>
+        <li>Check off items in the <strong>Pre-Purchase Checklist</strong> before visiting a dealer</li>
+        <li>Select cars and switch to the <strong>Compare tab</strong> for side-by-side specs</li>
+      </ol>
+      <a class="feedback-btn" href="mailto:risachou7@gmail.com">Report an issue / Send feedback</a>
+    </section>
+
+    <!-- Data sources -->
+    <section class="content-section data-section">
+      <h2 class="section-heading">Data sources</h2>
+
+      <div class="data-block">
+        <div class="data-block-title">⚠️ NHTSA Recalls</div>
+        <p class="data-block-body">Source: <strong>api.nhtsa.gov/recalls/recallsByVehicle</strong>. Free, no API key required. Returns open safety recalls by make / model / year. US coverage only.</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">💬 NHTSA Complaints</div>
+        <p class="data-block-body">Source: <strong>api.nhtsa.gov/complaints/complaintsByVehicle</strong>. User-submitted safety complaints. CarScope flags crash / fire / injury mentions to highlight the most serious issues.</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">🔑 VIN Decode</div>
+        <p class="data-block-body">Source: <strong>vpic.nhtsa.dot.gov</strong> (NHTSA vPIC API). Decodes any 17-character VIN to manufacturer specs: plant, engine, series, and more. Free, no API key required.</p>
+      </div>
+
+      <div class="data-block">
+        <div class="data-block-title">📊 Price Tracking</div>
+        <p class="data-block-body"><strong>Local only.</strong> CarScope records the listed price every time you visit a saved car. Price history is stored in your browser and never uploaded.</p>
+        <p class="data-block-hint">Background refresh runs every 24 hours · stores up to 10 price entries per car</p>
+      </div>
+
+      <p class="data-note">All data is from public sources. CarScope does not store any personal information and does not upload anything to any server.</p>
+    </section>
+
+    <!-- About the developer -->
+    <section class="content-section about-section">
+      <h2 class="section-heading">About the developer</h2>
+      <div class="risa-logo-wrap">
+        <a href="https://yccc777.github.io/risa-studio/" target="_blank" rel="noopener">
+          <img src="imag/Risa_Studio_logo.png" alt="Risa Studio" class="risa-logo"
+               onerror="this.parentElement.style.display='none'">
+        </a>
+      </div>
+      <p class="about-text">CarScope is built by <a class="about-link" href="https://yccc777.github.io/risa-studio/" target="_blank" rel="noopener"><strong>Risa Studio</strong></a>, the same team behind <a class="about-link" href="https://chromewebstore.google.com/detail/stayscope/khmhjiafkapmhakmpfcgmgikkffejnpm" target="_blank" rel="noopener">StayScope</a> (Airbnb / Booking.com travel assistant) and <a class="about-link" href="#" target="_blank" rel="noopener">HomeScope</a> (Taiwan real estate assistant). All data processing runs locally in your browser — no personal data is ever collected or transmitted.</p>
+      <div class="about-badge">
+        <span>Zero data collection · Local-first</span>
+      </div>
+    </section>
+
+    <!-- Support development -->
+    <section class="content-section donate-section">
+      <h2 class="section-heading">Support development</h2>
+      <p class="donate-desc">CarScope is completely free. If it saves you time or helps you find a better deal, buying the developer a coffee is always appreciated ☕</p>
+
+      <div class="qr-grid">
+        <div class="qr-card">
+          <a href="https://ko-fi.com/risa_studio" target="_blank" rel="noopener" class="qr-img-link">
+            <img src="imag/qrcode_kofi.webp" alt="Ko-fi QR" class="qr-img"
+                 onerror="this.style.display='none';this.nextSibling.style.display='flex'">
+            <div class="qr-placeholder" style="display:none"><span>☕</span></div>
+          </a>
+          <div class="qr-label">Ko-fi</div>
+          <a class="qr-link" href="https://ko-fi.com/risa_studio" target="_blank" rel="noopener">ko-fi.com/risa_studio</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Changelog -->
+    <section class="content-section">
+      <h2 class="section-heading">Changelog</h2>
+      <div class="changelog">
+        <div class="cl-item">
+          <span class="cl-ver">v1.0</span>
+          <div class="cl-body">
+            <div class="cl-title">Initial Release — CarGurus support</div>
+            <ul class="cl-list">
+              <li>NHTSA recalls, complaints, and VIN decode</li>
+              <li>Save &amp; track cars with notes, ratings, and tags</li>
+              <li>Price history tracking + 24h background auto-refresh</li>
+              <li>Price drop notifications</li>
+              <li>Monthly cost estimate calculator (loan + fuel)</li>
+              <li>Pre-purchase checklist (shareable with □ checkboxes)</li>
+              <li>Side-by-side comparison for up to 3 cars</li>
+              <li>Browsing history &amp; share shortlist</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="about-footer">
+      <button id="btn-close" class="close-btn">Close</button>
+      <span class="footer-copy">CarScope v1.0.0 · by Risa Studio</span>
+      <a class="footer-privacy" href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('btn-close').addEventListener('click', () => window.close());
+  </script>
+</body>
+</html>

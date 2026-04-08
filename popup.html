@@ -13,8 +13,36 @@
     <header id="header">
       <img id="header-icon" src="imag/icon32.png" alt="CarScope" width="22" height="22">
       <span id="header-title">CarScope</span>
-      <button id="btn-settings" class="settings-btn" title="Settings">⚙️</button>
+      <button id="btn-refresh-prices" class="header-icon-btn" title="Refresh prices">🔄</button>
+      <button id="btn-settings"       class="header-icon-btn" title="Settings">⚙️</button>
     </header>
+
+    <!-- ===== Settings Panel (overlay) ===== -->
+    <div id="pane-settings" class="settings-panel hidden">
+      <div class="settings-header">
+        <span>Settings</span>
+        <button id="btn-settings-close" class="header-icon-btn">✕</button>
+      </div>
+
+      <section class="settings-section">
+        <h3 class="settings-section-title">🔔 Notifications</h3>
+        <label class="settings-toggle-row">
+          <div>
+            <div class="settings-row-label">Price drop alerts</div>
+            <div class="settings-row-hint">Notify when a saved car's price drops</div>
+          </div>
+          <input type="checkbox" id="toggle-notifications" class="settings-toggle">
+        </label>
+      </section>
+
+      <section class="settings-section">
+        <h3 class="settings-section-title">💾 Data</h3>
+        <button id="btn-export-data"    class="settings-btn">📋 Copy saved cars (JSON)</button>
+        <button id="btn-clear-saved"    class="settings-btn settings-btn-danger">🗑️ Clear all saved cars</button>
+        <button id="btn-clear-hist-s"   class="settings-btn settings-btn-danger">🗑️ Clear browsing history</button>
+      </section>
+
+    </div><!-- /pane-settings -->
 
     <!-- Tab bar -->
     <nav id="tab-bar">
@@ -42,18 +70,26 @@
 
           <!-- Car name -->
           <div id="car-name" class="car-name"></div>
+          <div id="dealer-info" class="dealer-info hidden"></div>
 
           <!-- Specs chips -->
           <div id="specs-row" class="specs-row hidden"></div>
+
+          <!-- Registration plate (UK only) -->
+          <div id="reg-plate-row" class="reg-plate-row hidden">
+            <span class="reg-label">Reg</span>
+            <input id="input-reg-plate" class="reg-input" placeholder="AB12 CDE" maxlength="8" spellcheck="false">
+            <button id="btn-reg-save" class="reg-save-btn" title="Save plate">✓</button>
+          </div>
 
           <!-- Action buttons -->
           <button id="btn-save" class="save-btn">⭐ <span id="label-save">Save</span></button>
 
           <!-- Link-out tools -->
           <div class="tool-row">
-            <button id="btn-carfax"  class="tool-btn">CARFAX</button>
-            <button id="btn-nhtsa"   class="tool-btn">NHTSA</button>
-            <button id="btn-kbb"     class="tool-btn">KBB Value</button>
+            <button id="btn-link1" class="tool-btn">CARFAX</button>
+            <button id="btn-link2" class="tool-btn">NHTSA</button>
+            <button id="btn-link3" class="tool-btn">KBB Value</button>
           </div>
         </div>
       </div>
@@ -66,7 +102,19 @@
         </button>
         <div id="recalls-body" class="hidden">
           <div id="recalls-content" class="recalls-loading">Checking recalls…</div>
-          <div class="recalls-source">Source: NHTSA (api.nhtsa.gov) — U.S. only</div>
+          <div class="recalls-source">Source: <a href="https://www.nhtsa.gov/recalls" target="_blank" class="source-link">NHTSA</a> — U.S. only</div>
+        </div>
+      </div>
+
+      <!-- Complaints section (shown when make/model/year known) -->
+      <div id="section-complaints" class="group hidden">
+        <button class="section-toggle" id="btn-complaints-toggle">
+          <h3 class="group-label group-label-complaints">💬 NHTSA Complaints</h3>
+          <span class="toggle-arrow" id="complaints-arrow">▶</span>
+        </button>
+        <div id="complaints-body" class="hidden">
+          <div id="complaints-content" class="recalls-loading">Loading complaints…</div>
+          <div class="recalls-source">Source: <a href="https://www.nhtsa.gov/complaints" target="_blank" class="source-link">NHTSA</a> — user-submitted complaints (U.S. only)</div>
         </div>
       </div>
 
@@ -81,14 +129,24 @@
         </div>
       </div>
 
+      <!-- Monthly cost estimate (shown when price available) -->
+      <div id="section-cost" class="group hidden">
+        <button class="section-toggle" id="btn-cost-toggle">
+          <h3 class="group-label">💰 Monthly Cost Estimate</h3>
+          <span class="toggle-arrow" id="cost-arrow">▶</span>
+        </button>
+        <div id="cost-body" class="hidden">
+          <div id="cost-content"></div>
+        </div>
+      </div>
+
       <!-- Not a listing page -->
       <div id="not-listing" class="hidden">
         <div class="empty-state">
           <div class="empty-icon">🚗</div>
-          <p id="label-not-listing">Go to a vehicle listing page on CarGurus or AutoTrader to use CarScope.</p>
+          <p id="label-not-listing">Go to a vehicle listing page to use CarScope.</p>
           <div class="platform-hint">
             <span class="ph-badge ph-cargurus">CarGurus</span>
-            <span class="ph-badge ph-autotrader">AutoTrader</span>
           </div>
         </div>
       </div>
@@ -104,6 +162,7 @@
           <button class="filter-pill" data-filter="scheduled">Scheduled</button>
           <button class="filter-pill" data-filter="seen">Visited</button>
         </div>
+        <div id="saved-body-filter-bar" class="hidden"></div>
       </div>
       <div id="saved-list"></div>
       <div id="saved-empty" class="hidden">
@@ -113,6 +172,63 @@
           <p class="empty-hint">Click Save on any listing to track it.</p>
         </div>
       </div>
+
+      <!-- Action bar -->
+      <div id="saved-actions">
+        <button id="btn-share-shortlist" class="action-btn">📤 Share shortlist</button>
+      </div>
+
+      <!-- Pre-Purchase Checklist (collapsible) -->
+      <div id="section-checklist" class="group" style="margin-top:8px;">
+        <button class="section-toggle" id="btn-checklist-toggle">
+          <h3 class="group-label">📋 Pre-Purchase Checklist</h3>
+          <span class="toggle-arrow" id="checklist-arrow">▶</span>
+        </button>
+        <div id="checklist-body" class="hidden">
+          <div class="checklist-tip">💡 <strong>Key tip:</strong> Pay $100–150 for a <strong>Pre-Purchase Inspection (PPI)</strong> by an independent mechanic before buying. It can save you thousands.</div>
+
+          <div class="checklist-group">
+            <div class="checklist-group-title">Before you visit</div>
+            <div class="checklist-item">📄 Run a CARFAX or AutoCheck report (~$40) — accident history, title issues, odometer</div>
+            <div class="checklist-item">🔧 Book a pre-purchase inspection with an independent mechanic ($100–150)</div>
+            <div class="checklist-item">🛡️ Get insurance quotes before you commit — rates vary a lot by car model</div>
+            <div class="checklist-item">🔍 Search "[year] [make] [model] common problems" online</div>
+          </div>
+
+          <div class="checklist-group">
+            <div class="checklist-group-title">At the dealership</div>
+            <div class="checklist-item">🚗 Check panel gaps on hood, doors, trunk — uneven gaps signal past collision repairs</div>
+            <div class="checklist-item">🦀 Look for rust under the car, in wheel wells, and along door edges</div>
+            <div class="checklist-item">🔢 Confirm VIN on dashboard matches the title and door jamb sticker</div>
+            <div class="checklist-item">🛞 Check tire tread depth and wear pattern — uneven wear = alignment or suspension issue</div>
+            <div class="checklist-item">💡 Test every feature: A/C, heat, all windows, locks, mirrors, Bluetooth, USB ports</div>
+            <div class="checklist-item">🔦 Check all lights: headlights, brake lights, turn signals, reverse lights</div>
+            <div class="checklist-item">🏎️ Test drive at least 15 min — include highway speed, hard braking, sharp turns</div>
+            <div class="checklist-item">👂 Cold-start the engine and listen for unusual noises before the test drive</div>
+          </div>
+
+          <div class="checklist-group">
+            <div class="checklist-group-title">Documents to request</div>
+            <div class="checklist-item">📋 Clean title (not "salvage", "rebuilt", or "flood")</div>
+            <div class="checklist-item">📋 Maintenance and service records</div>
+            <div class="checklist-item">📋 As-is receipt or warranty documentation</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recently Viewed (collapsible) -->
+      <div id="history-section">
+        <button id="btn-history-toggle" class="history-toggle">
+          <span>🕒 Recently Viewed</span>
+          <span id="history-count" class="history-count">0</span>
+          <span id="history-arrow" class="history-arrow">▶</span>
+        </button>
+        <div id="history-list" class="hidden"></div>
+        <div id="history-footer" class="hidden">
+          <button id="btn-history-clear" class="history-clear-btn">Clear history</button>
+        </div>
+      </div>
+
     </div><!-- /pane-saved -->
 
     <!-- ===== Tab: Compare ===== -->
@@ -128,7 +244,8 @@
 
     <footer id="footer">
       <a id="footer-brand" href="#" class="footer-brand" title="About CarScope">
-        🚗 CarScope
+        <span class="footer-brand-main">🚗 CarScope</span>
+        <span class="footer-brand-sub">About · Privacy</span>
       </a>
     </footer>
 

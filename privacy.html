@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarScope — Privacy Policy</title>
+  <link rel="icon" href="imag/icon32.png" type="image/png">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #1C1C1E;
+      color: #F5F5F7;
+      line-height: 1.7;
+      padding: 48px 24px;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
+    .brand-name { font-size: 22px; font-weight: 700; color: #0A84FF; }
+    .brand-sub  { font-size: 13px; color: #8E8E93; }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .updated { font-size: 13px; color: #8E8E93; margin-bottom: 40px; }
+    h2 { font-size: 17px; font-weight: 600; color: #0A84FF; margin: 32px 0 12px; }
+    p  { font-size: 15px; color: #C0C0C4; margin-bottom: 12px; }
+    ul { list-style: none; padding: 0; margin-bottom: 12px; }
+    ul li {
+      font-size: 15px;
+      color: #C0C0C4;
+      padding: 6px 0 6px 20px;
+      position: relative;
+    }
+    ul li::before { content: "•"; position: absolute; left: 0; color: #0A84FF; }
+    strong { color: #F5F5F7; }
+    .highlight-box {
+      background: #2C2C2E;
+      border: 1px solid rgba(10, 132, 255, 0.25);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .highlight-box p { margin-bottom: 0; color: #F5F5F7; font-weight: 500; }
+    a { color: #5AC8FA; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      font-family: 'SF Mono', monospace;
+      font-size: 13px;
+      background: #2C2C2E;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #C0C0C4;
+    }
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px;
+      color: #8E8E93;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand">
+      <div>
+        <div class="brand-name">🚗 CarScope</div>
+        <div class="brand-sub">by Risa Studio</div>
+      </div>
+    </div>
+
+    <h1>Privacy Policy</h1>
+    <div class="updated">Last updated: April 2026</div>
+
+    <div class="highlight-box">
+      <p>CarScope does not collect, store on any server, or transmit any personal data. Risa Studio does not operate any server or database. All data stays on your own device.</p>
+    </div>
+
+    <h2>What CarScope reads</h2>
+    <p>When you visit a CarGurus vehicle listing page, CarScope reads the following publicly visible information from the page:</p>
+    <ul>
+      <li>Vehicle details: make, model, year, trim, VIN, price, mileage</li>
+      <li>Dealer name, location, and phone number (as displayed on the listing)</li>
+      <li>Deal rating and fuel economy figures (as provided by CarGurus)</li>
+    </ul>
+    <p>This information is identical to what any visitor can see on the listing page.</p>
+
+    <h2>Where data is stored</h2>
+    <p>All data is stored only in your own browser:</p>
+    <ul>
+      <li><strong>chrome.storage.local</strong> (persistent) — saved cars, notes, ratings, price history, browsing history, settings</li>
+      <li><strong>chrome.storage.session</strong> (browser session only) — the compare list, cleared when the browser closes</li>
+    </ul>
+    <p>Risa Studio and no third party can access this data.</p>
+
+    <h2>External network requests</h2>
+    <p>To provide safety and vehicle data, CarScope makes requests to the following <strong>free public APIs</strong> when you open a supported listing:</p>
+    <ul>
+      <li><strong>api.nhtsa.gov</strong> — NHTSA Recalls API: queries open recalls by make / model / year</li>
+      <li><strong>api.nhtsa.gov</strong> — NHTSA Complaints API: queries user complaints by make / model / year</li>
+      <li><strong>vpic.nhtsa.dot.gov</strong> — NHTSA vPIC VIN Decode API: decodes the 17-character VIN to vehicle specs</li>
+    </ul>
+    <p>These requests send only vehicle make / model / year or VIN — no personal identifiers. Results are processed locally and not stored beyond the popup session (except the recall count saved to your local car record).</p>
+    <p>Background price refresh opens temporary browser tabs to re-read listing prices from CarGurus. These tabs are opened and closed automatically and are not visible unless your browser is configured to show them.</p>
+
+    <h2>Permissions explained</h2>
+    <p>CarScope requests the following Chrome permissions:</p>
+    <ul>
+      <li><strong>activeTab / tabs</strong> — reads the current tab's URL and opens links from the extension popup</li>
+      <li><strong>scripting</strong> — injects extraction code into CarGurus pages (in the MAIN world) to read vehicle data from <code>window.__remixContext</code></li>
+      <li><strong>storage</strong> — saves your car list, notes, and settings to <code>chrome.storage.local</code></li>
+      <li><strong>alarms</strong> — schedules the 24-hour background price refresh</li>
+      <li><strong>notifications</strong> — shows a system notification when a saved car's price drops (can be disabled in Settings)</li>
+      <li><strong>host_permissions</strong> (cargurus.com, nhtsa.gov, etc.) — required by Chrome MV3 to inject scripts and make cross-origin requests to those domains; no data is sent to Risa Studio</li>
+    </ul>
+
+    <h2>No tracking or analytics</h2>
+    <p>CarScope contains no analytics SDK, crash reporting service, advertising network, or telemetry of any kind. Risa Studio has no visibility into how many people use the extension, how often, or what vehicles they look at.</p>
+
+    <h2>Children's privacy</h2>
+    <p>CarScope does not collect any user information. Since data never leaves your device, there are no privacy concerns for users of any age.</p>
+
+    <h2>Policy changes</h2>
+    <p>If CarScope's privacy practices change (for example, a new data source is added), this policy will be updated and the extension version number will be bumped accordingly.</p>
+
+    <h2>Contact</h2>
+    <p>For any questions, please contact us at <a href="mailto:risachou7@gmail.com">risachou7@gmail.com</a>.</p>
+
+    <footer>
+      &copy; 2026 Risa Studio &nbsp;·&nbsp; CarScope Chrome Extension
+    </footer>
+
+  </div>
+</body>
+</html>
